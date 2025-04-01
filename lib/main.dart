@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'routes.dart'; // Importa o arquivo de rotas do app
+import 'routes.dart'; // Importa o arquivo de rotas
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Unidos na Fé',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/',
-      routes: appRoutes, // Definindo as rotas do jogo
+      initialRoute: '/login', // Define a tela de login como inicial
+      routes: appRoutes, // Usa o mapa de rotas definido
     );
   }
-}
+
