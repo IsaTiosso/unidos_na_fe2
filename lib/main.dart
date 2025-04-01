@@ -17,4 +17,4 @@ class MyApp extends StatelessWidget {
       routes: appRoutes, // Usa o mapa de rotas definido
     );
   }
-
+}
