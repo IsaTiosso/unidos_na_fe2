@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Unidos na Fé',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/login', // Define a tela de login como inicial
+      initialRoute: '/', // <- AQUI! Define SplashScreen como inicial
       routes: appRoutes, // Usa o mapa de rotas definido
     );
   }
