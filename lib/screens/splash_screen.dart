@@ -30,17 +30,46 @@ class _SplashScreenState extends State<SplashScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/map');
         },
-        child: Text('JOGAR'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        child: Text(
+          'JOGAR',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.black,
+            fontFamily: 'LuckiestGuy',
+          ),
+        ),
       );
     } else {
       botao = ElevatedButton(
         onPressed: null,
-        child: Text('CARREGANDO...'),
+        style: ElevatedButton.styleFrom(
+          disabledBackgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        child: Text(
+          'CARREGANDO...',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.black,
+            fontFamily: 'LuckiestGuy',
+          ),
+        ),
       );
     }
 
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width; //ver de mudar
     final screenHeight = MediaQuery.of(context).size.height;
+
 
     return Scaffold(
       body: Center(
