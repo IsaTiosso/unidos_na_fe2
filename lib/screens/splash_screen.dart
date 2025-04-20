@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({super.key}); // muda de estado
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 10), () { // duração do botão carregando
       setState(() {
         showButton = true;
       });
@@ -30,10 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/map');
         },
-        style: ElevatedButton.styleFrom(
+        style: ElevatedButton.styleFrom( // para customizar
           backgroundColor: Colors.green,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.black, width: 2),
+          shape: RoundedRectangleBorder( // formato
+            side: BorderSide(color: Colors.black, width: 2), // borda do botão
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -67,27 +67,23 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
 
-    final screenWidth = MediaQuery.of(context).size.width; //ver de mudar
-    final screenHeight = MediaQuery.of(context).size.height;
-
-
     return Scaffold(
       body: Center(
-        child: Container(
-          width: screenWidth,
-          height: screenHeight,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/principal.png'),
-              fit: BoxFit.cover,
+        child: SizedBox.expand( // tela toda - dispositivos diferentes tamanhos
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/principal.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              botao,
-              SizedBox(height: 20),
-            ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end, // final da tela
+              children: [
+                botao,
+                SizedBox(height: 20), // espaço
+              ],
+            ),
           ),
         ),
       ),

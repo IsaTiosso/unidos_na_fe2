@@ -23,6 +23,7 @@ flutter:
 
   assets:
     - assets/images/principal.png
+    - assets/images/button.png
 
   fonts:
     - family: LuckiestGuy
