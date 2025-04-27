@@ -4,5 +4,5 @@ import 'screens/map_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/': (context) => const SplashScreen(),
-  '/map': (context) => const MapScreen(),
+  '/map': (context) => MapScreen(),
 };
