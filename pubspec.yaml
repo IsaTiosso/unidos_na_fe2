@@ -24,6 +24,10 @@ flutter:
   assets:
     - assets/images/principal.png
     - assets/images/button.png
+    - assets/images/casa.png
+    - assets/images/igreja.png
+    - assets/images/escola.png
+    - assets/images/park.png
 
   fonts:
     - family: LuckiestGuy
