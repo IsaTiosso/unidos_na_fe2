@@ -21,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+// showButton -> Ativa/desativa um botão (visual + ação); o botão ainda estará presente na tela
+
   @override
   Widget build(BuildContext context) {
     ElevatedButton botao;
