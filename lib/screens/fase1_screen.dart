@@ -16,10 +16,10 @@ class _Fase1ScreenState extends State<Fase1Screen> {
     setState(() {
       etapa = 2;
       if (opcao == 'B') {
-        feedback = "✅ Resposta correta! Jesus é o Filho de Deus.";
+        feedback = "✅ Acertou! Parábens";
         acertou = true;
       } else {
-        feedback = "❌ Resposta incorreta. Não desanime, você consegue!";
+        feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
       }
     });
@@ -143,7 +143,7 @@ class _Fase1ScreenState extends State<Fase1Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Quem é Jesus Cristo e por que Ele é importante para os católicos?",
+            "O que é a fé?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -152,11 +152,11 @@ class _Fase1ScreenState extends State<Fase1Screen> {
             ),
           ),
           SizedBox(height: 20),
-          _buildAlternativaBotao('A', 'Jesus Cristo é um profeta como qualquer outro, sem importância especial.'),
+          _buildAlternativaBotao('A', 'Brincar com os amigos.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('B', 'Jesus Cristo é o Filho de Deus, o Salvador da humanidade, e é a base da fé católica.'),
+          _buildAlternativaBotao('B', 'Acreditar em algo sem ver'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('C', 'Jesus Cristo foi apenas um sábio que ensinou boas ações, mas não tem relação com Deus.'),
+          _buildAlternativaBotao('C', 'Ter medo do escuro.'),
         ],
       ),
     );
