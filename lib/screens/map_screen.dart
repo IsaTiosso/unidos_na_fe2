@@ -388,6 +388,34 @@ class MapScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
+                  Positioned(
+                    bottom: 20,
+                    right: 20,
+                    child: Tooltip(
+                      message: 'Créditos',
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/credits');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueGrey[800],
+                          padding: EdgeInsets.all(8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                            side: BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.info_outline,
+                          size: 30,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
