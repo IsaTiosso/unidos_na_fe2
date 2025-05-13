@@ -143,7 +143,7 @@ class _Fase8ScreenState extends State<Fase8Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "O que significa ser solidário'?",
+            "O que significa ser solidário?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

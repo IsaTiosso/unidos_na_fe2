@@ -143,7 +143,7 @@ class _Fase7ScreenState extends State<Fase7Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "O que significa perdoar alguém'?",
+            "O que significa perdoar alguém?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

@@ -143,7 +143,7 @@ class _Fase11ScreenState extends State<Fase11Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Qual é o lugar sagrado dos cristão'?",
+            "Qual é o lugar sagrado dos cristão?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

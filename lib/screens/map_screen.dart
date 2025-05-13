@@ -10,7 +10,7 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[800],
+      backgroundColor: Colors.lightGreen[800],
       body: SafeArea(
         child: SingleChildScrollView( // para rodar a tela
           controller: _scrollController,

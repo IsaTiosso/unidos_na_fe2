@@ -143,7 +143,7 @@ class _Fase3ScreenState extends State<Fase3Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "O que significa 'Amar ao Próximo'?",
+            "O que significa 'Amar ao Próximo?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

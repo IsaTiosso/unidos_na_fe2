@@ -143,7 +143,7 @@ class _Fase5ScreenState extends State<Fase5Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Em qual dia os cristãos comemoram a Páscoa'?",
+            "Em qual dia os cristãos comemoram a Páscoa?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

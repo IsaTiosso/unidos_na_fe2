@@ -143,7 +143,7 @@ class _Fase9ScreenState extends State<Fase9Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Qual é a principal mensagem de Jesus'?",
+            "Qual é a principal mensagem de Jesus?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

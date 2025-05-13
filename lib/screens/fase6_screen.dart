@@ -143,7 +143,7 @@ class _Fase6ScreenState extends State<Fase6Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Qual é o símbolo da paz em várias religiões'?",
+            "Qual é o símbolo da paz em várias religiões?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

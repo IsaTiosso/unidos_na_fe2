@@ -143,7 +143,7 @@ class _Fase4ScreenState extends State<Fase4Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Qual é o livro sagrado do Cristianismo'?",
+            "Qual é o livro sagrado do Cristianismo?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

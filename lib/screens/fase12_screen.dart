@@ -143,7 +143,7 @@ class _Fase12ScreenState extends State<Fase12Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "O que podemos aprender com diferentes culturas e tradições'?",
+            "O que podemos aprender com diferentes culturas e tradições?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -226,7 +226,7 @@ class _Fase12ScreenState extends State<Fase12Screen> {
         acertou
             ? ElevatedButton(
           onPressed: voltarMapa,
-          child: Text("Avançar para o próximo nível!"),
+          child: Text("Você conseguiu! Com fé e alegria no coração, cada desafio guia nosso caminho neste jogo e na vida!"),
         )
             : ElevatedButton(
           onPressed: () {

@@ -143,7 +143,7 @@ class _Fase10ScreenState extends State<Fase10Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "O que é oração'?",
+            "O que é oração?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
