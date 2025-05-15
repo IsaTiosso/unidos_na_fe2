@@ -1,52 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MapScreen extends StatelessWidget {
-  MapScreen({super.key});
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
 
-  final ScrollController _scrollController = ScrollController(
-    initialScrollOffset: 1800, // Mostra embaixo já
-  );
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  final ScrollController _scrollController = ScrollController(initialScrollOffset: 1800);
+  int faseAtual = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarProgresso();
+  }
+
+  Future<void> _carregarProgresso() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      faseAtual = prefs.getInt('faseAtual') ?? 1;
+    });
+  }
+
+  Widget _buildBotaoFase(int numeroFase, double top, double left) {
+    bool desbloqueada = numeroFase <= faseAtual;
+    return Positioned(
+      top: top,
+      left: MediaQuery.of(context).size.width * left,
+      child: ElevatedButton(
+        onPressed: desbloqueada
+            ? () {
+          Navigator.pushNamed(context, '/fase$numeroFase');
+        }
+            : null, // desabilita se não estiver desbloqueada
+        style: ElevatedButton.styleFrom(
+          backgroundColor: desbloqueada ? null : Colors.grey[400],
+          padding: EdgeInsets.all(30),
+          shape: CircleBorder(
+            side: BorderSide(
+              color: desbloqueada ? Colors.lightBlue : Colors.grey,
+              width: 5,
+            ),
+          ),
+        ),
+        child: Text(
+          '$numeroFase',
+          style: const TextStyle(
+            fontSize: 25,
+            color: Colors.black,
+            fontFamily: 'LuckiestGuy',
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightGreen[800],
       body: SafeArea(
-        child: SingleChildScrollView( // para rodar a tela
+        child: SingleChildScrollView(
           controller: _scrollController,
           child: Center(
             child: SizedBox(
-              height: 2000, // Altura aumentada para caber todos os botões
+              height: 2000,
               width: double.infinity,
-              child: Stack( // posicionamento
+              child: Stack(
                 children: [
-                  // Fase 1
-                  Positioned(
-                    top: 1820,
-                    left: MediaQuery.of(context).size.width * 0.65,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase1');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.lightBlue, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '1',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
                   // Casa
                   Positioned(
                     top: 1700,
@@ -56,87 +80,6 @@ class MapScreen extends StatelessWidget {
                       height: 261,
                       width: 261,
                       fit: BoxFit.contain,
-                    ),
-                  ),
-                  // Fase 2
-                  Positioned(
-                    top: 1700,
-                    left: MediaQuery.of(context).size.width * 0.59,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase2');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.lightBlue, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '2',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 3
-                  Positioned(
-                    top: 1600,
-                    left: MediaQuery.of(context).size.width * 0.40,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase3');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.lightBlue, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '3',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 4
-                  Positioned(
-                    top: 1500,
-                    left: MediaQuery.of(context).size.width * 0.25,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase4');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blue, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '4',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
                     ),
                   ),
                   // Escola
@@ -150,115 +93,7 @@ class MapScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  // Fase 5
-                  Positioned(
-                    top: 1400,
-                    left: MediaQuery.of(context).size.width * 0.15,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase5');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blue, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '5',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 6
-                  Positioned(
-                    top: 1290,
-                    left: MediaQuery.of(context).size.width * 0.19,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase6');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blue, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '6',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 7
-                  Positioned(
-                    top: 1190,
-                    left: MediaQuery.of(context).size.width * 0.35,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase7');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blueAccent, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '7',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 8
-                  Positioned(
-                    top: 1100,
-                    left: MediaQuery.of(context).size.width * 0.54,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase8');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blueAccent, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '8',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Park
+                  // Parque
                   Positioned(
                     top: 800,
                     left: (MediaQuery.of(context).size.width - 360) / 2 - 60,
@@ -267,114 +102,6 @@ class MapScreen extends StatelessWidget {
                       height: 311,
                       width: 309,
                       fit: BoxFit.contain,
-                    ),
-                  ),
-                  // Fase 9
-                  Positioned(
-                    top: 1000,
-                    left: MediaQuery.of(context).size.width * 0.72,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase9');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(30),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blueAccent, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '9',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 10
-                  Positioned(
-                    top: 900,
-                    left: MediaQuery.of(context).size.width * 0.76,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase10');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(25),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blueGrey, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '10',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 11
-                  Positioned(
-                    top: 800,
-                    left: MediaQuery.of(context).size.width * 0.65,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase11');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(25),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blueGrey, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '11',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Fase 12
-                  Positioned(
-                    top: 700,
-                    left: MediaQuery.of(context).size.width * 0.44,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/fase12');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(25),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Colors.blueGrey, // Cor do contorno
-                            width: 5, // Espessura do contorno
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        '12',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'LuckiestGuy',
-                        ),
-                      ),
                     ),
                   ),
                   // Igreja
@@ -388,6 +115,22 @@ class MapScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
+
+                  // Botões de fases
+                  _buildBotaoFase(1, 1820, 0.65),
+                  _buildBotaoFase(2, 1700, 0.59),
+                  _buildBotaoFase(3, 1600, 0.40),
+                  _buildBotaoFase(4, 1500, 0.25),
+                  _buildBotaoFase(5, 1400, 0.15),
+                  _buildBotaoFase(6, 1290, 0.19),
+                  _buildBotaoFase(7, 1190, 0.35),
+                  _buildBotaoFase(8, 1100, 0.54),
+                  _buildBotaoFase(9, 1000, 0.72),
+                  _buildBotaoFase(10, 900, 0.76),
+                  _buildBotaoFase(11, 800, 0.65),
+                  _buildBotaoFase(12, 700, 0.44),
+
+                  // Botão de créditos
                   Positioned(
                     bottom: 20,
                     right: 20,
@@ -402,10 +145,7 @@ class MapScreen extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 2,
-                            ),
+                            side: BorderSide(color: Colors.black, width: 2),
                           ),
                         ),
                         child: Icon(

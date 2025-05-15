@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Fase6Screen extends StatefulWidget { // muda de estado
+class Fase6Screen extends StatefulWidget {
   const Fase6Screen({super.key});
 
   @override
@@ -12,12 +13,23 @@ class _Fase6ScreenState extends State<Fase6Screen> {
   String feedback = '';
   bool acertou = false;
 
+  Future<void> _avancarFase() async {
+    // Salvar o progresso após completar a fase
+    final prefs = await SharedPreferences.getInstance();
+    int faseAtual = prefs.getInt('faseAtual') ?? 1;
+
+    if (faseAtual < 7) {
+      prefs.setInt('faseAtual', 7); // Avançar para a próxima fase
+    }
+  }
+
   void responder(String opcao) {
     setState(() {
       etapa = 2;
       if (opcao == 'C') {
-        feedback = "✅ Acertou! Parábens!";
+        feedback = "✅ Acertou! Parabéns!";
         acertou = true;
+        _avancarFase(); // Avançar para a próxima fase
       } else {
         feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
@@ -26,7 +38,7 @@ class _Fase6ScreenState extends State<Fase6Screen> {
   }
 
   void voltarMapa() {
-    Navigator.pushNamed(context, '/map'); // Altere conforme sua rota
+    Navigator.pushNamed(context, '/map'); // Volta para o mapa
   }
 
   @override
@@ -156,7 +168,7 @@ class _Fase6ScreenState extends State<Fase6Screen> {
           SizedBox(height: 12),
           _buildAlternativaBotao('B', 'Cruz.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('C', 'Pomba branca.'),
+          _buildAlternativaBotao('C', 'Pomba Branca.'),
         ],
       ),
     );

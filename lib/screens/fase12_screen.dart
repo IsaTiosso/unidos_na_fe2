@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Fase12Screen extends StatefulWidget { // muda de estado
+class Fase12Screen extends StatefulWidget {
   const Fase12Screen({super.key});
 
   @override
@@ -8,16 +9,28 @@ class Fase12Screen extends StatefulWidget { // muda de estado
 }
 
 class _Fase12ScreenState extends State<Fase12Screen> {
-  int etapa = 0; // 0 = inicial, 1 = pergunta, 2 = resposta
+  int etapa = 0; // 0 = introdução, 1 = pergunta, 2 = feedback
   String feedback = '';
   bool acertou = false;
+
+  Future<void> _finalizarJogo() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt('faseAtual', 13); // Marca que completou a fase 12
+  }
+
+  Future<void> _reiniciarJogo() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('faseAtual', 1); // Reinicia o progresso
+  }
 
   void responder(String opcao) {
     setState(() {
       etapa = 2;
       if (opcao == 'C') {
-        feedback = "✅ Acertou! Parábens!";
+        feedback = "✅ Parabéns, você chegou ao fim!\n"
+            "Mas a sua caminhada ainda não terminou.";
         acertou = true;
+        _finalizarJogo();
       } else {
         feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
@@ -26,7 +39,11 @@ class _Fase12ScreenState extends State<Fase12Screen> {
   }
 
   void voltarMapa() {
-    Navigator.pushNamed(context, '/map'); // Altere conforme sua rota
+    Navigator.pushNamed(context, '/map');
+  }
+
+  void irParaTelaFinal() {
+    Navigator.pushNamed(context, '/fim');
   }
 
   @override
@@ -210,6 +227,33 @@ class _Fase12ScreenState extends State<Fase12Screen> {
   }
 
   Widget _buildFeedback() {
+    if (!acertou) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            feedback,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                etapa = 1;
+              });
+            },
+            child: Text("Tente novamente!"),
+          ),
+        ],
+      );
+    }
+
+    // Acertou — mostrar opções
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -223,18 +267,24 @@ class _Fase12ScreenState extends State<Fase12Screen> {
           ),
         ),
         SizedBox(height: 20),
-        acertou
-            ? ElevatedButton(
-          onPressed: voltarMapa,
-          child: Text("Você conseguiu! Com fé e alegria no coração, cada desafio guia nosso caminho neste jogo e na vida!"),
-        )
-            : ElevatedButton(
-          onPressed: () {
-            setState(() {
-              etapa = 1;
-            });
-          },
-          child: Text("Tente novamente!"),
+        Text("Deseja jogar novamente?", style: TextStyle(fontSize: 16)),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                await _reiniciarJogo();
+                voltarMapa();
+              },
+              child: Text("Sim"),
+            ),
+            SizedBox(width: 20),
+            ElevatedButton(
+              onPressed: irParaTelaFinal,
+              child: Text("Não"),
+            ),
+          ],
         ),
       ],
     );

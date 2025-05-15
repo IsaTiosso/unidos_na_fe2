@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Fase5Screen extends StatefulWidget { // muda de estado
+class Fase5Screen extends StatefulWidget {
   const Fase5Screen({super.key});
 
   @override
@@ -12,12 +13,23 @@ class _Fase5ScreenState extends State<Fase5Screen> {
   String feedback = '';
   bool acertou = false;
 
+  Future<void> _avancarFase() async {
+    // Salvar o progresso após completar a fase
+    final prefs = await SharedPreferences.getInstance();
+    int faseAtual = prefs.getInt('faseAtual') ?? 1;
+
+    if (faseAtual < 6) {
+      prefs.setInt('faseAtual', 6); // Avançar para a próxima fase
+    }
+  }
+
   void responder(String opcao) {
     setState(() {
       etapa = 2;
       if (opcao == 'B') {
-        feedback = "✅ Acertou! Parábens!";
+        feedback = "✅ Acertou! Parabéns!";
         acertou = true;
+        _avancarFase(); // Avançar para a próxima fase
       } else {
         feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
@@ -26,7 +38,7 @@ class _Fase5ScreenState extends State<Fase5Screen> {
   }
 
   void voltarMapa() {
-    Navigator.pushNamed(context, '/map'); // Altere conforme sua rota
+    Navigator.pushNamed(context, '/map'); // Volta para o mapa
   }
 
   @override
@@ -143,7 +155,7 @@ class _Fase5ScreenState extends State<Fase5Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Em qual dia os cristãos comemoram a Páscoa?",
+            "Em que dia os cristãos comemoram a Páscoa?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -154,7 +166,7 @@ class _Fase5ScreenState extends State<Fase5Screen> {
           SizedBox(height: 20),
           _buildAlternativaBotao('A', 'No Natal.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('B', 'No domingo de ressurreição'),
+          _buildAlternativaBotao('B', 'No domingo da ressureição.'),
           SizedBox(height: 12),
           _buildAlternativaBotao('C', 'No Carnaval.'),
         ],

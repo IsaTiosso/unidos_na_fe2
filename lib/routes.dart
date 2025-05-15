@@ -14,7 +14,7 @@ import 'screens/fase9_screen.dart';
 import 'screens/fase10_screen.dart';
 import 'screens/fase11_screen.dart';
 import 'screens/fase12_screen.dart';
-
+import 'screens/fim_screen.dart';
 
 
 final Map<String, WidgetBuilder> appRoutes = {
@@ -33,5 +33,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/fase11': (context) => const Fase11Screen(),
   '/fase12': (context) => const Fase12Screen(),
   '/credits': (context) => const CreditsScreen(),
-
+  '/fim': (context) => const FimScreen(),
 };

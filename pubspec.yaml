@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
+  shared_preferences: ^2.0.17
 
 dev_dependencies:
   flutter_test:
@@ -33,9 +33,9 @@ flutter:
     - assets/images/escola.png
     - assets/images/park.png
     - assets/images/personagem.png
+    - assets/images/fim.png
 
   fonts:
     - family: LuckiestGuy
       fonts:
         - asset: assets/fonts/LuckiestGuy-Regular.ttf
-

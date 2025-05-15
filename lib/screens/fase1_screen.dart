@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Fase1Screen extends StatefulWidget { // muda de estado
+class Fase1Screen extends StatefulWidget {
   const Fase1Screen({super.key});
 
   @override
@@ -12,12 +13,23 @@ class _Fase1ScreenState extends State<Fase1Screen> {
   String feedback = '';
   bool acertou = false;
 
+  Future<void> _avancarFase() async {
+    // Salvar o progresso após completar a fase
+    final prefs = await SharedPreferences.getInstance();
+    int faseAtual = prefs.getInt('faseAtual') ?? 1;
+
+    if (faseAtual < 2) {
+      prefs.setInt('faseAtual', 2); // Avançar para a próxima fase
+    }
+  }
+
   void responder(String opcao) {
     setState(() {
       etapa = 2;
       if (opcao == 'B') {
-        feedback = "✅ Acertou! Parábens";
+        feedback = "✅ Acertou! Parabéns!";
         acertou = true;
+        _avancarFase(); // Avançar para a próxima fase
       } else {
         feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
@@ -26,7 +38,7 @@ class _Fase1ScreenState extends State<Fase1Screen> {
   }
 
   void voltarMapa() {
-    Navigator.pushNamed(context, '/map'); // Altere conforme sua rota
+    Navigator.pushNamed(context, '/map'); // Volta para o mapa
   }
 
   @override
@@ -154,7 +166,7 @@ class _Fase1ScreenState extends State<Fase1Screen> {
           SizedBox(height: 20),
           _buildAlternativaBotao('A', 'Brincar com os amigos.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('B', 'Acreditar em algo sem ver'),
+          _buildAlternativaBotao('B', 'Acreditar em algo sem ver.'),
           SizedBox(height: 12),
           _buildAlternativaBotao('C', 'Ter medo do escuro.'),
         ],

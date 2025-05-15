@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Fase3Screen extends StatefulWidget { // muda de estado
+class Fase3Screen extends StatefulWidget {
   const Fase3Screen({super.key});
 
   @override
@@ -12,12 +13,23 @@ class _Fase3ScreenState extends State<Fase3Screen> {
   String feedback = '';
   bool acertou = false;
 
+  Future<void> _avancarFase() async {
+    // Salvar o progresso após completar a fase
+    final prefs = await SharedPreferences.getInstance();
+    int faseAtual = prefs.getInt('faseAtual') ?? 1;
+
+    if (faseAtual < 4) {
+      prefs.setInt('faseAtual', 4); // Avançar para a próxima fase
+    }
+  }
+
   void responder(String opcao) {
     setState(() {
       etapa = 2;
       if (opcao == 'B') {
-        feedback = "✅ Acertou! Parábens!";
+        feedback = "✅ Acertou! Parabéns!";
         acertou = true;
+        _avancarFase(); // Avançar para a próxima fase
       } else {
         feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
@@ -26,7 +38,7 @@ class _Fase3ScreenState extends State<Fase3Screen> {
   }
 
   void voltarMapa() {
-    Navigator.pushNamed(context, '/map'); // Altere conforme sua rota
+    Navigator.pushNamed(context, '/map'); // Volta para o mapa
   }
 
   @override
@@ -143,7 +155,7 @@ class _Fase3ScreenState extends State<Fase3Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "O que significa 'Amar ao Próximo?",
+            "O que significa 'Amar ao Próximo'?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -154,7 +166,7 @@ class _Fase3ScreenState extends State<Fase3Screen> {
           SizedBox(height: 20),
           _buildAlternativaBotao('A', 'Brigar com os colegas.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('B', 'Ajudar as pessoas e respeitá-las.'),
+          _buildAlternativaBotao('B', 'Ajudar pessoas e respeitá-las.'),
           SizedBox(height: 12),
           _buildAlternativaBotao('C', 'Esconder os brinquedos.'),
         ],

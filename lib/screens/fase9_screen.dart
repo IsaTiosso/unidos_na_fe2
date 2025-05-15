@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Fase9Screen extends StatefulWidget { // muda de estado
+class Fase9Screen extends StatefulWidget {
   const Fase9Screen({super.key});
 
   @override
@@ -12,12 +13,23 @@ class _Fase9ScreenState extends State<Fase9Screen> {
   String feedback = '';
   bool acertou = false;
 
+  Future<void> _avancarFase() async {
+    // Salvar o progresso após completar a fase
+    final prefs = await SharedPreferences.getInstance();
+    int faseAtual = prefs.getInt('faseAtual') ?? 1;
+
+    if (faseAtual < 10) {
+      prefs.setInt('faseAtual', 10); // Avançar para a próxima fase
+    }
+  }
+
   void responder(String opcao) {
     setState(() {
       etapa = 2;
-      if (opcao == 'C') {
-        feedback = "✅ Acertou! Parábens!";
+      if (opcao == 'B') {
+        feedback = "✅ Acertou! Parabéns!";
         acertou = true;
+        _avancarFase(); // Avançar para a próxima fase
       } else {
         feedback = "❌ Quase! Não desanime, você consegue!";
         acertou = false;
@@ -26,7 +38,7 @@ class _Fase9ScreenState extends State<Fase9Screen> {
   }
 
   void voltarMapa() {
-    Navigator.pushNamed(context, '/map'); // Altere conforme sua rota
+    Navigator.pushNamed(context, '/map'); // Volta para o mapa
   }
 
   @override
@@ -143,7 +155,7 @@ class _Fase9ScreenState extends State<Fase9Screen> {
           ),
           SizedBox(height: 20),
           Text(
-            "Qual é a principal mensagem de Jesus?",
+            "Qual a principal mensagem de Jesus?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -152,11 +164,11 @@ class _Fase9ScreenState extends State<Fase9Screen> {
             ),
           ),
           SizedBox(height: 20),
-          _buildAlternativaBotao('A', 'Juntar moedas.'),
+          _buildAlternativaBotao('A', 'Ser o mais forte.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('B', 'Ser o mais forte.'),
+          _buildAlternativaBotao('B', 'Amar a Deus e ao próximo.'),
           SizedBox(height: 12),
-          _buildAlternativaBotao('C', 'Amar a Deus e ao próximo.'),
+          _buildAlternativaBotao('C', 'Brincar o tempo todo.'),
         ],
       ),
     );

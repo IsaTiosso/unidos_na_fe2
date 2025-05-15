@@ -8,7 +8,7 @@ class CreditsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Créditos'),
-        backgroundColor: Colors.black54,
+        backgroundColor: Colors.grey,
       ),
       backgroundColor: Colors.black,
       body: Center(
