@@ -34,6 +34,8 @@ flutter:
     - assets/images/park.png
     - assets/images/personagem.png
     - assets/images/fim.png
+    - assets/images/logo.comp.jpg
+    - assets/images/logo.extensao.jpeg
 
   fonts:
     - family: LuckiestGuy

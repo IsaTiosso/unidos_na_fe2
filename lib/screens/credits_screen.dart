@@ -14,7 +14,7 @@ class CreditsScreen extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Card(
-            color: Colors.grey[900],
+            color: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -36,10 +36,7 @@ class CreditsScreen extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   const SectionTitle('Nome e titulação de professores colaboradores:'),
-                  const SectionText(
-                    'Prof. Luiz Filipe Grael Tinós',
-                    bold: true,
-                  ),
+                  const SectionText('Prof. Luiz Filipe Grael Tinós', bold: true),
 
                   const SizedBox(height: 20),
 
@@ -51,13 +48,10 @@ class CreditsScreen extends StatelessWidget {
 
                   const SizedBox(height: 30),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      LogoColumn(label: 'DESENVOLVIMENTO:', logoText: 'CIÊNCIA DA\nCOMPUTAÇÃO'),
-                      LogoColumn(label: 'APOIO:', logoText: 'COORDENADORIA\nDE EXTENSÃO'),
-                    ],
-                  ),
+                  // Logos centralizadas, uma abaixo da outra
+                  const Center(child: LogoWithLabel(label: 'DESENVOLVIMENTO:', imagePath: 'assets/images/logo.comp.jpg')),
+                  const SizedBox(height: 24),
+                  const Center(child: LogoWithLabel(label: 'APOIO:', imagePath: 'assets/images/logo.extensao.jpeg')),
                 ],
               ),
             ),
@@ -99,10 +93,10 @@ class SectionText extends StatelessWidget {
   }
 }
 
-class LogoColumn extends StatelessWidget {
+class LogoWithLabel extends StatelessWidget {
   final String label;
-  final String logoText;
-  const LogoColumn({required this.label, required this.logoText, super.key});
+  final String imagePath;
+  const LogoWithLabel({required this.label, required this.imagePath, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -113,17 +107,9 @@ class LogoColumn extends StatelessWidget {
           style: const TextStyle(color: Colors.white, fontSize: 14),
         ),
         const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.black54,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            logoText,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
+        Image.asset(
+          imagePath,
+          width: 300, // ajuste conforme necessário
         ),
       ],
     );
