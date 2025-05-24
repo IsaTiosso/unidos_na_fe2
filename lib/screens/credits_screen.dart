@@ -30,17 +30,17 @@ class CreditsScreen extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  const SectionTitle('Nome do professor responsável:'),
+                  const SectionTitle('Professor responsável:'),
                   const SectionText('Prof. Dr. Elvio Gilberto da Silva', bold: true),
 
                   const SizedBox(height: 20),
 
-                  const SectionTitle('Nome e titulação de professores colaboradores:'),
-                  const SectionText('Prof. Luiz Filipe Grael Tinós', bold: true),
+                  const SectionTitle('Professor Colaborador:'),
+                  const SectionText('Prof. Luís Filipe Grael Tinós', bold: true),
 
                   const SizedBox(height: 20),
 
-                  const SectionTitle('Nomes completos dos integrantes e colaboradores do grupo:'),
+                  const SectionTitle('Integrantes do grupo:'),
                   const SectionText('Fernando Fleuri Barbosa'),
                   const SectionText('Isabela Xavier Tiosso'),
                   const SectionText('Maria Clara Gasparotto'),
